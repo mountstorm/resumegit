@@ -1,0 +1,25 @@
+name: propagate-replace
+new_item:
+  section: experience
+  item:
+    id: cspire-2025            # same id as existing item — this is a promotion/update
+    org: C Spire
+    role: Returning Software Engineering Intern
+    dates: 2026-05/2026-08
+    bullets:
+      - id: dar-1
+        text: >
+          Extended the billing automation pipeline to three more report types,
+          eliminating the team's last daily manual review.
+        evidence: internal
+    tags: [python, automation]
+branch:
+  company: Stripe
+  role: Data Platform Intern
+  voice: data-infrastructure emphasis, quantified impact, systems language
+existing_resume: fixtures/base-resume.yaml
+properties:
+  item_present: true
+  id_stable: true
+  no_duplicate_ids: true       # the update must replace cspire-2025, not add a copy
+  must_mention_any: [pipeline, automation, billing]

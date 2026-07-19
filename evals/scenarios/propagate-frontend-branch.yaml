@@ -1,0 +1,27 @@
+name: propagate-frontend-branch
+new_item:
+  section: projects
+  item:
+    id: worldcup-predictor
+    org: worldcup-predictor
+    role: Creator
+    dates: 2026-07/2026-07
+    bullets:
+      - id: wc-1
+        text: >
+          Built a World Cup final prediction model: Elo ratings over 35k
+          international matches feed a recency-weighted Poisson regression,
+          resolved through 10k Monte Carlo simulations with a chart dashboard.
+        evidence: https://github.com/mountstorm/worldcup-predictor
+    tags: [python, pandas, sklearn, monte-carlo, matplotlib]
+branch:
+  company: Vercel
+  role: Frontend Engineering Intern
+  voice: product and interface emphasis, visualization craft, user-facing outcomes
+existing_resume: fixtures/base-resume.yaml
+properties:
+  item_present: true
+  id_stable: true
+  must_mention_any: [dashboard, visualization, charts, interface]
+  must_not_mention: [recency-weighted, half-life, K-factor]
+  max_bullets: 2

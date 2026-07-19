@@ -1,0 +1,21 @@
+name: propagate-irrelevant
+new_item:
+  section: experience
+  item:
+    id: campus-cafe-2026
+    org: Campus Cafe
+    role: Barista
+    dates: 2026-01/2026-05
+    bullets:
+      - id: cafe-1
+        text: Served 200+ customers per shift; trained 3 new hires.
+    tags: [service]
+branch:
+  company: Jane Street
+  role: Quantitative Research Intern
+  voice: mathematical rigor, modeling, competitive programming
+existing_resume: fixtures/base-resume.yaml
+properties:
+  item_present: false
+  omission_reason_if_absent: true
+  id_stable: true

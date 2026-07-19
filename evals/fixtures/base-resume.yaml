@@ -1,0 +1,50 @@
+basics:
+  name: Muzaffar Khaydarov
+  email: mkhaydar@go.olemiss.edu
+  location: Oxford, MS
+  links:
+    - https://github.com/mountstorm
+summary: >
+  CS student building data-driven products: ETL pipelines, prediction models,
+  and the web apps that make them usable.
+sections:
+  - id: experience
+    items:
+      - id: cspire-2025
+        org: C Spire
+        role: Software Engineering Intern
+        dates: 2025-05/2025-08
+        bullets:
+          - id: dar-1
+            text: >
+              Built a Python pipeline that auto-generates billing reports and files
+              ServiceNow tickets, replacing 10-20 manual reviews a day.
+            evidence: internal
+          - id: idp-1
+            text: >
+              Built a CI/CD-ready audit tool catching mismatched billing plans
+              before customers see them.
+            evidence: internal
+        tags: [python, automation]
+  - id: projects
+    items:
+      - id: whosponsors
+        org: WhoSponsors
+        role: Creator
+        dates: 2026-05/present
+        bullets:
+          - id: ws-1
+            text: >
+              Built an H-1B sponsorship database: ETL over 831k USCIS filings with
+              entity resolution across 324k employers, served as per-company trend
+              charts.
+            evidence: https://github.com/mountstorm/whosponsors
+        tags: [python, sqlite, nextjs, data]
+  - id: education
+    items:
+      - id: olemiss
+        org: University of Mississippi
+        role: B.S. Computer Science
+        dates: 2023-08/2027-05
+        bullets: []
+        tags: []
