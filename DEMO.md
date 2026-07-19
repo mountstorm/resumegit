@@ -12,9 +12,9 @@ git for resumes."
 **0:15–0:40 — THE MOMENT.**
 Screen: Merge Review. "Last week I shipped a World Cup prediction model. Watch — I
 commit it once to main…" (commit) "…and resumeGit propagates it into every tailored
-branch I have open — rewritten for each one. My Stripe branch describes it as a
-probabilistic modeling pipeline; my frontend branch leads with the dashboard. One
-commit, every resume current, each in its own voice." (approve-all, commits land)
+branch I have open — rewritten for each one. My AI-engineering branch frames it as
+probabilistic modeling and simulation; my robotics branch skips it with a stated
+reason. One commit, every resume current, each in its own voice." (approve, commits land)
 
 **0:40–1:10 — branch per application.**
 Paste a real JD. "New application = new branch. GPT-5.6 reads the JD, reorders my

@@ -65,8 +65,8 @@ export const mockProvider: AiProvider = {
 
     const itemsA = new Map(resumeA.sections.flatMap((s) => s.items.map((i) => [i.id, i] as const)));
     const itemsB = new Map(resumeB.sections.flatMap((s) => s.items.map((i) => [i.id, i] as const)));
-    for (const [id, item] of itemsB) if (!itemsA.has(id)) changes.push(`Adds ${item.org}`);
-    for (const [id, item] of itemsA) if (!itemsB.has(id)) changes.push(`Drops ${item.org}`);
+    for (const [id, item] of itemsB) if (!itemsA.has(id)) changes.push(`Adds ${item.org} — ${item.role}`);
+    for (const [id, item] of itemsA) if (!itemsB.has(id)) changes.push(`Drops ${item.org} — ${item.role}`);
 
     // Name exactly which entries were reworded, bullet by bullet.
     for (const [id, itemB] of itemsB) {
