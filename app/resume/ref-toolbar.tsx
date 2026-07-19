@@ -40,7 +40,9 @@ export function RefToolbar({ refs, current, diffAgainst, blame }: Props) {
       <button className="toggle" aria-pressed={blame} onClick={() => navigate(current, diffAgainst, !blame)}>
         {blame ? 'blame on' : 'blame off'}
       </button>
-      <button className="toggle" onClick={() => window.print()}>print / PDF</button>
+      <a className="toggle" href={`/api/pdf?ref=${encodeURIComponent(current)}`} download>
+        download PDF
+      </a>
     </div>
   );
 }
