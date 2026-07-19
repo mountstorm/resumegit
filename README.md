@@ -2,11 +2,36 @@
 
 Git version control for your resume: a branch per application, and a GPT-5.6 semantic
 merge engine that propagates one life update into every tailored branch, each in its
-own voice.
+own voice. Every resume is a real git repository — git is the database.
 
 **Track:** Apps for your life
 
-## This repo (pre-build design)
+## Run it
+
+```bash
+npm install
+npm run seed        # demo resume + two tailored branches (deterministic, no AI)
+npm run dev         # http://localhost:3000
+```
+
+Without an `OPENAI_API_KEY` the app runs in **mock mode** (deterministic AI stand-in,
+full flow works). For real GPT-5.6 semantic ops: `cp .env.example .env` and set
+`OPENAI_API_KEY` (model defaults to `gpt-5.6`).
+
+- **Timeline** — every commit on every branch of your career
+- **Branches** — one per application; paste a JD to tailor a new one
+- **Merge** — commit a new experience once, review the per-branch rewrites, land them
+- **Resume** — rendered view of any ref, with blame (per-bullet origin + evidence)
+
+```bash
+npm run evals            # property-based checks on the semantic merge (real model)
+npm run evals -- --mock  # plumbing checks only (language properties skipped)
+npm run typecheck
+```
+
+To reset the demo: `rm -rf data && npm run seed`.
+
+## Design docs
 
 | File | What it is |
 |---|---|

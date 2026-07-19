@@ -1,50 +1,135 @@
 basics:
   name: Muzaffar Khaydarov
   email: mkhaydar@go.olemiss.edu
+  phone: 662-550-0100
   location: Oxford, MS
   links:
-    - https://github.com/mountstorm
+    - linkedin.com/in/muzaffar-
+    - github.com/mountstorm
 summary: >
-  CS student building data-driven products: ETL pipelines, prediction models,
-  and the web apps that make them usable.
+  CS student (Math minor) at the University of Mississippi building data pipelines,
+  distributed AI systems, and the automation that keeps production billing running.
 sections:
   - id: experience
     items:
-      - id: cspire-2025
+      - id: cspire-2026
         org: C Spire
         role: Software Engineering Intern
-        dates: 2025-05/2025-08
+        dates: 2026-06/present
         bullets:
-          - id: dar-1
+          - id: cs-1
             text: >
-              Built a Python pipeline that auto-generates billing reports and files
-              ServiceNow tickets, replacing 10-20 manual reviews a day.
+              Handled 100+ weekly zero-payment errors in a production Perl billing flow by
+              routing invalid records to a rejection file, preventing batch-wide failures and
+              removing on-call manual intervention.
             evidence: internal
-          - id: idp-1
+          - id: cs-2
             text: >
-              Built a CI/CD-ready audit tool catching mismatched billing plans
-              before customers see them.
+              Built an environment-aware Python automation that queries flagged accounts and
+              auto-issues a ServiceNow ticket only when actionable issues exist, replacing manual
+              review of 10-20 daily account emails and saving operators 30 min/day.
             evidence: internal
-        tags: [python, automation]
+        tags: [python, perl, automation, sql, production]
+      - id: distributed-ai-2026
+        org: University of Mississippi (Prof. Feng Wang) × University of Memphis
+        role: Undergraduate Research Assistant — Distributed AI Systems
+        dates: 2026-01/present
+        bullets:
+          - id: dai-1
+            text: >
+              Implement split-inference systems in Python (PyTorch) that partition deep neural
+              network execution across device, edge, and cloud to enable AI on memory- and
+              GPU-constrained hardware.
+          - id: dai-2
+            text: >
+              Built a two-machine distributed inference pipeline with a length-prefixed TCP
+              protocol for intermediate tensors, verifying output identical to single-machine
+              inference (max error under 1e-4).
+          - id: dai-3
+            text: >
+              Profiled all 22 AlexNet split points for compute vs. transmission cost across WiFi,
+              LTE, and backhaul links; validated a column-parallel (Megatron-style) layer split as
+              mathematically equivalent.
+        tags: [python, pytorch, distributed-systems, edge, research]
+      - id: ta-2025
+        org: University of Mississippi
+        role: Computer Science Teaching Assistant
+        dates: 2025-07/present
+        bullets:
+          - id: ta-1
+            text: >
+              Guide 49+ students through OOP (Java), data structures, and algorithms through
+              hands-on labs, debugging sessions, and code reviews.
+          - id: ta-2
+            text: >
+              Review and optimize 300+ programs weekly, improving code quality and implementation
+              accuracy by 20%.
+        tags: [java, teaching, algorithms]
+      - id: pharma-research-2024
+        org: University of Mississippi — Thad Cochran Research Center
+        role: Undergraduate Research Assistant
+        dates: 2024-10/2025-04
+        bullets:
+          - id: pr-1
+            text: >
+              Programmed industrial robots (Wlkata, Epson) in Python and C++ for autonomous
+              pharmaceutical preparation, reducing contamination risk by 85%.
+          - id: pr-2
+            text: >
+              Built data pipelines with pandas, NumPy, and Matplotlib for collection,
+              preprocessing, and visualization.
+        tags: [python, cpp, robotics, pandas]
   - id: projects
     items:
-      - id: whosponsors
-        org: WhoSponsors
+      - id: neurabash
+        org: NeuraBash
         role: Creator
-        dates: 2026-05/present
+        dates: 2025-09/2025-10
         bullets:
-          - id: ws-1
+          - id: nb-1
             text: >
-              Built an H-1B sponsorship database: ETL over 831k USCIS filings with
-              entity resolution across 324k employers, served as per-company trend
-              charts.
-            evidence: https://github.com/mountstorm/whosponsors
-        tags: [python, sqlite, nextjs, data]
+              Built a terminal-based AI coding assistant integrating GPT-4 and local LLMs (Ollama)
+              for online and offline inference, applying prompt engineering to drive repository
+              analysis and code explanation.
+            evidence: github.com/mountstorm/neurabash
+          - id: nb-2
+            text: >
+              Engineered a modular CLI with a memory-efficient architecture, reducing RAM
+              footprint by 30%.
+        tags: [python, bash, llm, cli]
+      - id: valuestop
+        org: ValueStop (EmoryHacks 2025)
+        role: Team of 3
+        dates: 2025-11/2025-11
+        bullets:
+          - id: vs-1
+            text: >
+              Developed an AI-powered shopping navigator optimizing multi-store routes using the
+              Gemini API and A* pathfinding.
+            evidence: github.com/mountstorm/valuestop
+          - id: vs-2
+            text: >
+              Engineered a two-tier data architecture: pre-scraped database (150 products, 5
+              stores) plus real-time scraping with Playwright.
+        tags: [react, vite, maps, firestore, scraping]
   - id: education
     items:
       - id: olemiss
         org: University of Mississippi
-        role: B.S. Computer Science
-        dates: 2023-08/2027-05
-        bullets: []
-        tags: []
+        role: B.S. Computer Science, Minor in Mathematics
+        dates: 2024-08/2028-05
+        bullets:
+          - id: ed-1
+            text: >
+              GPA 3.87/4.0 — Chancellor's Roll (all semesters) — Sally McDonnell Barksdale Honors
+              College (Top 5%).
+        tags: [education]
+skills:
+  - category: Languages
+    items: [Java, Python, C++, C, JavaScript, TypeScript, Perl, SQL, Bash]
+  - category: Frameworks & Tools
+    items: [Spring Boot, Node.js, Next.js, Flask, LangChain, Git, Docker, Kubernetes, AWS EC2, Firebase, ServiceNow, PyTorch, Ollama]
+  - category: Systems
+    items: [Linux, RHEL, Billing Systems, Production Support]
+  - category: Certifications
+    items: [AWS Generative AI Applications (2025), IBM Data Analysis Professional (2025)]
