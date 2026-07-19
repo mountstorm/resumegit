@@ -1,6 +1,5 @@
-import Link from 'next/link';
-import { branchColor } from '@/lib/color';
-import { fullLog, repoExists } from '@/lib/repo';
+import { fullLog, listApplicationBranches, repoExists, MAIN } from '@/lib/repo';
+import { TimelineView } from './timeline-view';
 
 export const dynamic = 'force-dynamic';
 
@@ -15,7 +14,7 @@ export default async function TimelinePage() {
       </>
     );
   }
-  const log = await fullLog();
+  const [log, applicationBranches] = await Promise.all([fullLog(), listApplicationBranches()]);
   return (
     <>
       <h1>Career timeline</h1>
@@ -23,36 +22,7 @@ export default async function TimelinePage() {
         Every commit across every branch of your resume — main is your life, branches are your
         applications.
       </p>
-      <div className="card graph">
-        {log.map((entry) => {
-          const primary = entry.branches[entry.branches.length - 1] ?? 'main';
-          return (
-            <div className="commit" key={entry.hash}>
-              <span className="node" style={{ background: branchColor(primary) }} />
-              <div>
-                <div className="msg">{entry.message}</div>
-                <div className="meta">
-                  <span className="date">
-                    {new Date(entry.date).toLocaleDateString(undefined, {
-                      month: 'short', day: 'numeric', year: 'numeric'
-                    })}
-                  </span>
-                  {entry.branches.map((branch) => (
-                    <span key={branch} className="chip">
-                      <span className="dot" style={{ background: branchColor(branch) }} />
-                      {branch}
-                    </span>
-                  ))}
-                  <Link className="chip link" href={`/resume?ref=${entry.hash}`}>
-                    view →
-                  </Link>
-                </div>
-              </div>
-              <span className="hash">{entry.hash.slice(0, 7)}</span>
-            </div>
-          );
-        })}
-      </div>
+      <TimelineView entries={log} branches={[MAIN, ...applicationBranches]} />
     </>
   );
 }

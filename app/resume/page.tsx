@@ -1,5 +1,14 @@
+import { DiffView } from '@/components/diff-view';
+import { RefToolbar } from './ref-toolbar';
 import { getProvider } from '@/lib/ai/provider';
-import { bulletOrigin, diffRefs, readResume, repoExists, MAIN } from '@/lib/repo';
+import {
+  bulletOrigin,
+  diffRefs,
+  listApplicationBranches,
+  readResume,
+  repoExists,
+  MAIN
+} from '@/lib/repo';
 
 export const dynamic = 'force-dynamic';
 
@@ -20,6 +29,7 @@ export default async function ResumePage({ searchParams }: Props) {
   const ref = params.ref ?? MAIN;
   const showBlame = params.blame === '1';
   const resume = await readResume(ref);
+  const refs = [MAIN, ...(await listApplicationBranches())];
 
   const origins = new Map<string, { date: string; message: string }>();
   if (showBlame) {
@@ -43,15 +53,9 @@ export default async function ResumePage({ searchParams }: Props) {
 
   return (
     <>
-      <div className="no-print" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline' }}>
-        <h1>
-          Resume <span className="chip">{ref}</span>
-        </h1>
-        <p>
-          <a className="chip" href={`/resume?ref=${ref}${showBlame ? '' : '&blame=1'}`}>
-            {showBlame ? 'hide blame' : 'show blame'}
-          </a>
-        </p>
+      <div className="no-print" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', flexWrap: 'wrap', gap: 8 }}>
+        <h1>Resume</h1>
+        <RefToolbar refs={refs} current={ref} diffAgainst={params.diff ?? ''} blame={showBlame} />
       </div>
 
       {semanticDiff && (
@@ -61,9 +65,9 @@ export default async function ResumePage({ searchParams }: Props) {
             {semanticDiff.map((change, i) => (<li key={i}>{change}</li>))}
           </ul>
           {rawDiff && rawDiff.trim() && (
-            <details>
-              <summary className="skip" style={{ cursor: 'pointer' }}>raw git diff</summary>
-              <pre className="diff">{rawDiff}</pre>
+            <details open>
+              <summary className="skip" style={{ cursor: 'pointer' }}>line diff</summary>
+              <DiffView raw={rawDiff} />
             </details>
           )}
         </div>
