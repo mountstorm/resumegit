@@ -8,6 +8,7 @@ import {
   MAIN
 } from './repo';
 import {
+  parseResume,
   serializeBranchMeta,
   serializeResume,
   upsertItem,
@@ -66,7 +67,6 @@ export async function applyPropagation(
   );
   const branchCommits: Record<string, string> = {};
   for (const { branch, resumeYaml } of approved) {
-    const { parseResume } = await import('./schema');
     branchCommits[branch] = await commitResume(
       branch,
       parseResume(resumeYaml),

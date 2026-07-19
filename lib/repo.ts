@@ -27,10 +27,17 @@ function git(): SimpleGit {
   return simpleGit(REPO_DIR);
 }
 
+/** Whether the resume repository has been initialized (seed has run). */
 export function repoExists(): boolean {
   return existsSync(path.join(REPO_DIR, '.git'));
 }
 
+/**
+ * Creates the resume repository with an initial commit on main.
+ *
+ * @param resumeYaml Resume content; validated against the schema before writing.
+ * @throws If a repository already exists at the data directory.
+ */
 export async function initRepo(resumeYaml: string): Promise<void> {
   return withLock(async () => {
     if (repoExists()) throw new Error(`repo already exists at ${REPO_DIR}`);
@@ -50,10 +57,12 @@ async function showFile(ref: string, file: string): Promise<string> {
   return git().show([`${ref}:${file}`]);
 }
 
+/** Reads the resume as of any ref (branch name or commit hash). */
 export async function readResume(ref: string = MAIN): Promise<Resume> {
   return parseResume(await showFile(ref, RESUME_FILE));
 }
 
+/** Reads a branch's application metadata; null for refs without one (e.g. main). */
 export async function readBranchMeta(branch: string): Promise<BranchMeta | null> {
   try {
     return parseBranchMeta(await showFile(branch, META_FILE));
@@ -62,11 +71,13 @@ export async function readBranchMeta(branch: string): Promise<BranchMeta | null>
   }
 }
 
+/** All application branches — every local branch except main. */
 export async function listApplicationBranches(): Promise<string[]> {
   const branches = await git().branchLocal();
   return branches.all.filter((b) => b !== MAIN);
 }
 
+/** One commit in the cross-branch history, with the branches that contain it. */
 export interface LogEntry {
   hash: string;
   date: string;
@@ -75,6 +86,7 @@ export interface LogEntry {
   branches: string[];
 }
 
+/** Commit history across all branches, newest first — the career timeline. */
 export async function fullLog(): Promise<LogEntry[]> {
   const raw = await git().raw([
     'log', '--all', '--date=iso-strict', '--pretty=format:%H%x1f%ad%x1f%s%x1f%D'
@@ -121,6 +133,11 @@ async function commitFiles(
   }
 }
 
+/**
+ * Branches off main with a tailored resume and its application metadata.
+ *
+ * @returns The commit hash of the branch's first commit.
+ */
 export async function createApplicationBranch(
   branch: string,
   resume: Resume,
@@ -132,14 +149,17 @@ export async function createApplicationBranch(
   );
 }
 
+/** Commits a new resume version on an existing branch; returns the commit hash. */
 export async function commitResume(branch: string, resume: Resume, message: string): Promise<string> {
   return withLock(() => commitFiles(branch, { [RESUME_FILE]: serializeResume(resume) }, message));
 }
 
+/** Raw unified diff of the resume between two refs. */
 export async function diffRefs(refA: string, refB: string): Promise<string> {
   return git().diff([refA, refB, '--', RESUME_FILE]);
 }
 
+/** The commit that first introduced a bullet — when, and under what message. */
 export interface BulletOrigin {
   hash: string;
   date: string;

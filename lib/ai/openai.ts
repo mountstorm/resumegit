@@ -11,6 +11,7 @@ const MODEL = process.env.OPENAI_MODEL || 'gpt-5.6';
 
 const client = new OpenAI();
 
+/** Loads a system prompt from lib/prompts — prompts are versioned files, never inline. */
 async function prompt(name: string): Promise<string> {
   return readFile(path.join(process.cwd(), 'lib', 'prompts', `${name}.md`), 'utf8');
 }
@@ -29,6 +30,7 @@ const PropagateOutput = z.object({
 
 const DiffOutput = z.object({ changes: z.array(z.string()).min(3).max(5) });
 
+/** One structured-output call: system prompt + user content → schema-validated JSON. */
 async function structured<T>(
   system: string,
   user: string,

@@ -1,4 +1,4 @@
-import { findItem, type BranchMeta, type Item, type Resume } from '../schema';
+import type { BranchMeta, Item, Resume } from '../schema';
 import type { AiProvider, PropagateResult, TailorResult } from './provider';
 
 /**
@@ -25,7 +25,7 @@ function relevant(item: Item, meta: BranchMeta): boolean {
 export const mockProvider: AiProvider = {
   name: 'mock',
 
-  async tailor(resume: Resume, company: string, role: string, jd: string): Promise<TailorResult> {
+  async tailor(resume: Resume, _company: string, role: string, _jd: string): Promise<TailorResult> {
     const copy: Resume = structuredClone(resume);
     const r = role.toLowerCase();
     // Emphasis = order: technical roles lead with projects.
@@ -35,14 +35,12 @@ export const mockProvider: AiProvider = {
     for (const section of copy.sections) {
       for (const item of section.items) item.bullets = item.bullets.slice(0, 2);
     }
-    void jd;
     return { voice: voiceFor(role), resume: copy, omitted: [] };
   },
 
   async propagate(
-    newItem: Item, sectionId: string, branchResume: Resume, meta: BranchMeta
+    newItem: Item, _sectionId: string, _branchResume: Resume, meta: BranchMeta
   ): Promise<PropagateResult> {
-    void sectionId;
     if (!relevant(newItem, meta)) {
       return {
         include: false,
@@ -52,8 +50,6 @@ export const mockProvider: AiProvider = {
     }
     const rewritten: Item = structuredClone(newItem);
     rewritten.bullets = rewritten.bullets.slice(0, 2);
-    const existing = findItem(branchResume, newItem.id);
-    void existing; // same-id replace is handled by upsert in the apply step
     return {
       include: true,
       reason: `Fits the ${meta.voice || voiceFor(meta.role)} focus of this branch.`,

@@ -56,18 +56,22 @@ export type Section = z.infer<typeof SectionSchema>;
 export type Resume = z.infer<typeof ResumeSchema>;
 export type BranchMeta = z.infer<typeof BranchMetaSchema>;
 
+/** Parses and validates resume YAML; throws with a precise path on schema violations. */
 export function parseResume(yamlText: string): Resume {
   return ResumeSchema.parse(parse(yamlText));
 }
 
+/** Serializes a resume to the canonical YAML stored in git. */
 export function serializeResume(resume: Resume): string {
   return stringify(resume, { lineWidth: 100 });
 }
 
+/** Parses and validates a branch's application metadata YAML. */
 export function parseBranchMeta(yamlText: string): BranchMeta {
   return BranchMetaSchema.parse(parse(yamlText));
 }
 
+/** Serializes branch metadata to the YAML stored in `.resumegit/branch.yaml`. */
 export function serializeBranchMeta(meta: BranchMeta): string {
   return stringify(meta, { lineWidth: 100 });
 }
@@ -82,14 +86,6 @@ export function allIds(resume: Resume): Set<string> {
     }
   }
   return ids;
-}
-
-export function findItem(resume: Resume, itemId: string): Item | undefined {
-  for (const section of resume.sections) {
-    const item = section.items.find((i) => i.id === itemId);
-    if (item) return item;
-  }
-  return undefined;
 }
 
 /** Insert or replace an item (matched by id) in the given section. Returns a new resume. */

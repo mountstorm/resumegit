@@ -155,7 +155,7 @@ body {
 }
 
 /* ---- forms & buttons ---- */
-button, .btn {
+button {
   background: var(--accent);
   color: var(--accent-ink);
   border: none;
@@ -168,7 +168,6 @@ button, .btn {
 }
 button:hover:not(:disabled) { filter: brightness(1.08); }
 button:disabled { opacity: 0.55; cursor: default; }
-button.ghost { background: transparent; color: var(--ink-2); border: 1px solid var(--line-strong); }
 button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visible, select:focus-visible {
   outline: 2px solid var(--accent);
   outline-offset: 1px;
