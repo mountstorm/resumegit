@@ -8,6 +8,7 @@ import {
   MAIN
 } from './repo';
 import {
+  enforceSectionOrder,
   parseResume,
   serializeBranchMeta,
   serializeResume,
@@ -85,6 +86,8 @@ export async function createTailoredBranch(
   const provider = await getProvider();
   const mainResume: Resume = await readResume(MAIN);
   const result = await provider.tailor(mainResume, company, role, jd);
+  // Structure is non-negotiable: whatever the model returns, sections stay canonical.
+  enforceSectionOrder(result.resume);
   const branch = company.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
   const meta = serializeBranchMeta({
     company, role, jd,

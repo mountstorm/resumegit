@@ -88,6 +88,22 @@ export function allIds(resume: Resume): Set<string> {
   return ids;
 }
 
+/** The fixed section structure (Jake's-resume convention); skills always render last. */
+export const SECTION_ORDER = ['education', 'experience', 'projects'] as const;
+
+/**
+ * Restores the canonical section order in place. Sections are structural and
+ * never a tailoring decision — emphasis lives in item order and inclusion.
+ */
+export function enforceSectionOrder(resume: Resume): Resume {
+  const rank = (id: string) => {
+    const index = SECTION_ORDER.indexOf(id as (typeof SECTION_ORDER)[number]);
+    return index === -1 ? SECTION_ORDER.length : index;
+  };
+  resume.sections.sort((a, b) => rank(a.id) - rank(b.id));
+  return resume;
+}
+
 /** Insert or replace an item (matched by id) in the given section. Returns a new resume. */
 export function upsertItem(resume: Resume, sectionId: string, item: Item): Resume {
   const copy: Resume = structuredClone(resume);

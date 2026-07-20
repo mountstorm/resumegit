@@ -12,8 +12,6 @@ import { parseResume, serializeBranchMeta, type BranchMeta, type Resume } from '
 interface BranchSpec {
   branch: string;
   meta: BranchMeta;
-  /** Section ids in display order — order IS emphasis. */
-  sectionOrder: string[];
   /** Item ids to keep, per section, in display order. Everything else must be in omissions. */
   keep: Record<string, string[]>;
   /** Bullet id -> replacement text, rewritten in this branch's voice (facts only). */
@@ -30,10 +28,6 @@ function applyKeepOrder(resume: Resume, keep: Record<string, string[]>): void {
   }
 }
 
-function applySectionOrder(resume: Resume, order: string[]): void {
-  resume.sections.sort((a, b) => order.indexOf(a.id) - order.indexOf(b.id));
-}
-
 function applyRewrites(resume: Resume, rewrites: Record<string, string>): void {
   for (const section of resume.sections) {
     for (const item of section.items) {
@@ -44,11 +38,10 @@ function applyRewrites(resume: Resume, rewrites: Record<string, string>): void {
   }
 }
 
-/** Builds one tailored branch resume from the base, per the spec. */
+/** Builds one tailored branch resume from the base, per the spec. Section order never changes. */
 function buildBranch(base: Resume, spec: BranchSpec): Resume {
   const resume: Resume = structuredClone(base);
   applyKeepOrder(resume, spec.keep);
-  applySectionOrder(resume, spec.sectionOrder);
   applyRewrites(resume, spec.rewrites);
   return resume;
 }
@@ -66,7 +59,6 @@ const AI_ENGINEER: BranchSpec = {
       { id: 'valuestop', reason: 'Retail routing app; weakest signal for AI systems work.' }
     ]
   },
-  sectionOrder: ['experience', 'projects', 'education'],
   keep: {
     experience: ['distributed-ai-2026', 'cspire-2026', 'ta-2025'],
     projects: ['neurabash']
@@ -92,7 +84,6 @@ const ROBOTICS: BranchSpec = {
       { id: 'ta-2025', reason: 'Teaching role; least relevant to embedded robotics work.' }
     ]
   },
-  sectionOrder: ['experience', 'projects', 'education'],
   keep: {
     experience: ['pharma-research-2024', 'distributed-ai-2026', 'cspire-2026'],
     projects: ['valuestop']

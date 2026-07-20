@@ -52,13 +52,18 @@ function ResumeDocument({ resume }: { resume: Resume }) {
         {resume.sections.map((section) => (
           <View key={section.id}>
             <Text style={styles.sectionTitle}>{section.id}</Text>
-            {section.items.map((item) => (
+            {section.items.map((item) => {
+              // Jake's-resume convention: experience leads with the title, the
+              // rest (education, projects) lead with the institution/name.
+              const [primary, secondary] =
+                section.id === 'experience' ? [item.role, item.org] : [item.org, item.role];
+              return (
               <View key={item.id} style={styles.item} wrap={false}>
                 <View style={styles.itemHead}>
-                  <Text style={styles.org}>{item.org}</Text>
+                  <Text style={styles.org}>{primary}</Text>
                   <Text style={styles.dates}>{item.dates}</Text>
                 </View>
-                <Text style={styles.role}>{item.role}</Text>
+                <Text style={styles.role}>{secondary}</Text>
                 {item.bullets.map((bullet) => (
                   <View key={bullet.id} style={styles.bulletRow}>
                     <Text style={styles.bulletMark}>•</Text>
@@ -66,7 +71,8 @@ function ResumeDocument({ resume }: { resume: Resume }) {
                   </View>
                 ))}
               </View>
-            ))}
+              );
+            })}
           </View>
         ))}
         {resume.skills.length > 0 && (

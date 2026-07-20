@@ -10,6 +10,18 @@ summary: >
   CS student (Math minor) at the University of Mississippi building data pipelines,
   distributed AI systems, and the automation that keeps production billing running.
 sections:
+  - id: education
+    items:
+      - id: olemiss
+        org: University of Mississippi
+        role: B.S. Computer Science, Minor in Mathematics
+        dates: 2024-08/2028-05
+        bullets:
+          - id: ed-1
+            text: >
+              GPA 3.87/4.0 — Chancellor's Roll (all semesters) — Sally McDonnell Barksdale Honors
+              College (Top 5%).
+        tags: [education]
   - id: experience
     items:
       - id: cspire-2026
@@ -112,18 +124,6 @@ sections:
               Engineered a two-tier data architecture: pre-scraped database (150 products, 5
               stores) plus real-time scraping with Playwright.
         tags: [react, vite, maps, firestore, scraping]
-  - id: education
-    items:
-      - id: olemiss
-        org: University of Mississippi
-        role: B.S. Computer Science, Minor in Mathematics
-        dates: 2024-08/2028-05
-        bullets:
-          - id: ed-1
-            text: >
-              GPA 3.87/4.0 — Chancellor's Roll (all semesters) — Sally McDonnell Barksdale Honors
-              College (Top 5%).
-        tags: [education]
 skills:
   - category: Languages
     items: [Java, Python, C++, C, JavaScript, TypeScript, Perl, SQL, Bash]

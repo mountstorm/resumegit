@@ -27,11 +27,7 @@ export const mockProvider: AiProvider = {
 
   async tailor(resume: Resume, _company: string, role: string, _jd: string): Promise<TailorResult> {
     const copy: Resume = structuredClone(resume);
-    const r = role.toLowerCase();
-    // Emphasis = order: technical roles lead with projects.
-    if (r.includes('engineer') || r.includes('data') || r.includes('front')) {
-      copy.sections.sort((a, b) => (a.id === 'projects' ? -1 : b.id === 'projects' ? 1 : 0));
-    }
+    // Section order is fixed; the mock only trims bullets (emphasis via inclusion).
     for (const section of copy.sections) {
       for (const item of section.items) item.bullets = item.bullets.slice(0, 2);
     }

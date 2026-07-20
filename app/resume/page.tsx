@@ -85,13 +85,17 @@ export default async function ResumePage({ searchParams }: Props) {
         {resume.sections.map((section) => (
           <section key={section.id}>
             <h3>{section.id}</h3>
-            {section.items.map((item) => (
+            {section.items.map((item) => {
+              // Jake's-resume convention: experience leads with the title.
+              const [primary, secondary] =
+                section.id === 'experience' ? [item.role, item.org] : [item.org, item.role];
+              return (
               <div className="item" key={item.id}>
                 <div className="item-head">
-                  <span className="org">{item.org}</span>
+                  <span className="org">{primary}</span>
                   <span className="dates">{item.dates}</span>
                 </div>
-                <div className="role">{item.role}</div>
+                <div className="role">{secondary}</div>
                 <ul>
                   {item.bullets.map((bullet) => (
                     <li key={bullet.id}>
@@ -113,7 +117,8 @@ export default async function ResumePage({ searchParams }: Props) {
                   ))}
                 </ul>
               </div>
-            ))}
+              );
+            })}
           </section>
         ))}
         {resume.skills.length > 0 && (
