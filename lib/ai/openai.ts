@@ -19,7 +19,9 @@ async function prompt(name: string): Promise<string> {
 const TailorOutput = z.object({
   voice: z.string(),
   resume: ResumeSchema,
-  omitted: z.array(z.object({ id: z.string(), reason: z.string() }))
+  omitted: z.array(z.object({ id: z.string(), reason: z.string() })),
+  skills_matched: z.array(z.string()),
+  skills_missing: z.array(z.string())
 });
 
 const PropagateOutput = z.object({
@@ -57,7 +59,16 @@ export const openaiProvider: AiProvider = {
       `Company: ${company}`, `Role: ${role}`, `Job description:\n${jd}`,
       `Resume (YAML):\n${serializeResume(resume)}`
     ].join('\n\n');
-    return structured<TailorResult>(await prompt('tailor'), user, zodResponseFormat(TailorOutput, 'tailor'));
+    const out = await structured<z.infer<typeof TailorOutput>>(
+      await prompt('tailor'), user, zodResponseFormat(TailorOutput, 'tailor')
+    );
+    return {
+      voice: out.voice,
+      resume: out.resume,
+      omitted: out.omitted,
+      skillsMatched: out.skills_matched,
+      skillsMissing: out.skills_missing
+    };
   },
 
   async propagate(

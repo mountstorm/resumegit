@@ -39,6 +39,16 @@ export default async function BranchesPage() {
               <span className={`status ${meta?.status ?? 'none'}`}>{meta?.status ?? 'none'}</span>
             </div>
             {meta?.voice && <p className="lede" style={{ margin: '8px 0 0' }}>voice: {meta.voice}</p>}
+            {meta && (meta.skills_matched.length > 0 || meta.skills_missing.length > 0) && (
+              <p style={{ margin: '8px 0 0' }}>
+                {meta.skills_matched.map((skill) => (
+                  <span key={skill} className="skill match">✓ {skill}</span>
+                ))}
+                {meta.skills_missing.map((skill) => (
+                  <span key={skill} className="skill miss">✗ {skill}</span>
+                ))}
+              </p>
+            )}
             {meta && meta.omitted.length > 0 && (
               <p className="skip">
                 omitted: {meta.omitted.map((o) => `${o.id} (${o.reason})`).join('; ')}

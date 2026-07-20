@@ -5,6 +5,9 @@ export interface TailorResult {
   voice: string;
   resume: Resume;
   omitted: { id: string; reason: string }[];
+  /** Skills the JD asks for, split by whether the resume actually shows them. */
+  skillsMatched: string[];
+  skillsMissing: string[];
 }
 
 /** Output of the semantic merge for a single branch: land it, or skip with a reason. */

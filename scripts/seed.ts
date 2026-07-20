@@ -51,13 +51,15 @@ const AI_ENGINEER: BranchSpec = {
   meta: {
     company: 'OpenAI',
     role: 'AI Engineer Intern',
-    jd: 'Build and evaluate systems around large models: inference, tooling, and applied ML engineering.',
+    jd: 'Build and evaluate systems around large models: inference pipelines, LLM tooling, and applied ML engineering in Python/PyTorch. CUDA experience a plus.',
     voice: 'applied ML systems emphasis: model execution, inference, LLM tooling',
     status: 'applied',
     omitted: [
       { id: 'pharma-research-2024', reason: 'Hardware robotics work; out of scope for an applied AI role.' },
       { id: 'valuestop', reason: 'Retail routing app; weakest signal for AI systems work.' }
-    ]
+    ],
+    skills_matched: ['Python', 'PyTorch', 'LLM tooling (GPT-4, Ollama)'],
+    skills_missing: ['CUDA']
   },
   keep: {
     experience: ['distributed-ai-2026', 'cspire-2026', 'ta-2025'],
@@ -76,13 +78,15 @@ const ROBOTICS: BranchSpec = {
   meta: {
     company: 'Boston Dynamics',
     role: 'Robotics Software Intern',
-    jd: 'Software for real robots: control, autonomy, and performance on constrained hardware.',
+    jd: 'Software for real robots in C++ and Python: control, autonomy, ROS, and performance on constrained hardware.',
     voice: 'robotics and embedded emphasis: control, hardware constraints, real-time latency',
     status: 'interview',
     omitted: [
       { id: 'neurabash', reason: 'LLM developer tooling; not relevant to robotics software.' },
       { id: 'ta-2025', reason: 'Teaching role; least relevant to embedded robotics work.' }
-    ]
+    ],
+    skills_matched: ['C++', 'Python', 'edge hardware'],
+    skills_missing: ['ROS']
   },
   keep: {
     experience: ['pharma-research-2024', 'distributed-ai-2026', 'cspire-2026'],

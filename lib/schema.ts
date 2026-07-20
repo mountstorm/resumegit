@@ -47,7 +47,10 @@ export const BranchMetaSchema = z.object({
   jd: z.string().default(''),
   voice: z.string().default(''),
   status: z.enum(['none', 'applied', 'interview', 'offer', 'rejected']).default('none'),
-  omitted: z.array(z.object({ id: z.string(), reason: z.string() })).default([])
+  omitted: z.array(z.object({ id: z.string(), reason: z.string() })).default([]),
+  /** Parsed from the JD at tailor time: what it asks for vs. what the resume shows. */
+  skills_matched: z.array(z.string()).default([]),
+  skills_missing: z.array(z.string()).default([])
 });
 
 export type Bullet = z.infer<typeof BulletSchema>;

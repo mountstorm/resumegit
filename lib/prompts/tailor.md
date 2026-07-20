@@ -12,6 +12,12 @@ Hard rules — violating any of these is a failure:
    rendered resume must never exceed two pages.
 6. Derive a `voice` — a one-line style guide for this branch (e.g. "data-infrastructure
    emphasis, quantified impact, systems language") that future edits will follow.
+7. Parse the job description: extract every concrete skill, tool, language, or
+   technology it asks for (from the JD text only — never invent requirements).
+   Split them into `skills_matched` (the resume demonstrates it, in skills, tags,
+   or bullets — count semantic equivalents, e.g. "deep learning frameworks"
+   matches PyTorch) and `skills_missing` (the JD wants it, the resume shows no
+   evidence). Be honest: an empty missing list is suspicious, not impressive.
 
 You receive the resume as YAML, plus the company, role, and job description.
 Return the tailored resume, the voice, and the omissions list.

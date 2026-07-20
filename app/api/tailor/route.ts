@@ -5,7 +5,7 @@ import { createTailoredBranch } from '@/lib/engine';
 const Body = z.object({
   company: z.string().min(1),
   role: z.string().min(1),
-  jd: z.string().default('')
+  jd: z.string().min(40, 'paste the full job description (at least a few sentences)')
 });
 
 export async function POST(request: Request) {

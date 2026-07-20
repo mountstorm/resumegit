@@ -38,8 +38,8 @@ export function TailorForm() {
       <input id="company" value={company} onChange={(e) => setCompany(e.target.value)} required />
       <label htmlFor="role">Role</label>
       <input id="role" value={role} onChange={(e) => setRole(e.target.value)} required />
-      <label htmlFor="jd">Job description (paste)</label>
-      <textarea id="jd" value={jd} onChange={(e) => setJd(e.target.value)} />
+      <label htmlFor="jd">Job description (required — the tailoring and skills match parse it)</label>
+      <textarea id="jd" value={jd} onChange={(e) => setJd(e.target.value)} required minLength={40} />
       <p>
         <button disabled={busy}>{busy ? 'Tailoring…' : 'Tailor & create branch'}</button>
       </p>

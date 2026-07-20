@@ -9,6 +9,24 @@ import type { AiProvider, PropagateResult, TailorResult } from './provider';
 
 const TECH_WORDS = ['python', 'data', 'pipeline', 'model', 'react', 'nextjs', 'sqlite', 'sklearn', 'automation'];
 
+/** Tech terms the mock can recognize in a JD for the skills match. */
+const KNOWN_JD_SKILLS = [
+  'python', 'java', 'c++', 'typescript', 'javascript', 'sql', 'bash', 'perl', 'go', 'rust',
+  'react', 'next.js', 'node.js', 'docker', 'kubernetes', 'aws', 'linux', 'git', 'pytorch',
+  'tensorflow', 'cuda', 'ros', 'flask', 'spring', 'firebase', 'llm', 'ollama'
+];
+
+/** Naive skills match: known tech terms in the JD vs. terms the resume mentions anywhere. */
+function matchSkills(resume: Resume, jd: string): { matched: string[]; missing: string[] } {
+  const jdText = jd.toLowerCase();
+  const resumeText = JSON.stringify(resume).toLowerCase();
+  const wanted = KNOWN_JD_SKILLS.filter((skill) => jdText.includes(skill));
+  return {
+    matched: wanted.filter((skill) => resumeText.includes(skill)),
+    missing: wanted.filter((skill) => !resumeText.includes(skill))
+  };
+}
+
 function voiceFor(role: string): string {
   const r = role.toLowerCase();
   if (r.includes('front')) return 'product and interface emphasis, user-facing outcomes';
@@ -25,13 +43,20 @@ function relevant(item: Item, meta: BranchMeta): boolean {
 export const mockProvider: AiProvider = {
   name: 'mock',
 
-  async tailor(resume: Resume, _company: string, role: string, _jd: string): Promise<TailorResult> {
+  async tailor(resume: Resume, _company: string, role: string, jd: string): Promise<TailorResult> {
     const copy: Resume = structuredClone(resume);
     // Section order is fixed; the mock only trims bullets (emphasis via inclusion).
     for (const section of copy.sections) {
       for (const item of section.items) item.bullets = item.bullets.slice(0, 2);
     }
-    return { voice: voiceFor(role), resume: copy, omitted: [] };
+    const { matched, missing } = matchSkills(resume, jd);
+    return {
+      voice: voiceFor(role),
+      resume: copy,
+      omitted: [],
+      skillsMatched: matched,
+      skillsMissing: missing
+    };
   },
 
   async propagate(

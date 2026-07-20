@@ -93,7 +93,9 @@ export async function createTailoredBranch(
     company, role, jd,
     voice: result.voice,
     status: 'none',
-    omitted: result.omitted
+    omitted: result.omitted,
+    skills_matched: result.skillsMatched,
+    skills_missing: result.skillsMissing
   });
   await createApplicationBranch(branch, result.resume, meta, `Tailor for ${company} — ${role}`);
   return { branch, voice: result.voice, omitted: result.omitted };

@@ -203,6 +203,17 @@ textarea { min-height: 88px; resize: vertical; }
 .before .tag { color: var(--del); }
 .after .tag { color: var(--add); }
 
+.skill {
+  display: inline-block;
+  font-family: var(--mono);
+  font-size: 11.5px;
+  border-radius: 5px;
+  padding: 1px 8px;
+  margin: 0 6px 4px 0;
+}
+.skill.match { background: var(--add-bg); color: var(--add); }
+.skill.miss { background: var(--del-bg); color: var(--del); }
+
 .skip { color: var(--muted); font-size: 13px; font-style: italic; }
 .error { color: var(--del); font-size: 13.5px; }
 .ok { color: var(--add); font-size: 13.5px; font-weight: 600; }
